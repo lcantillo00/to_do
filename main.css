@@ -1,0 +1,16 @@
+body{
+    margin: auto;
+
+
+}
+.myform{
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+}
