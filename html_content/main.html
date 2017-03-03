@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="main.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <form class="myform">
+        <div class="form-group">
+            <label for="exampleInputEmail1" class="label">Description</label>
+            <input type="text" class="form-control" id="description" placeholder="description">
+        </div>
+        <div class="form2">
+            <label for="exampleInputEmail1" class="label">Status</label>
+            <select name="Satus" id="status" class="status">
+           <option value="new">new</option>
+           <option value="started">started</option>
+            <option value="completed">complete<complete/option>
+      </select>
+        </div>
+
+
+        <button type="submit" id="submit" class="btn btn-default">Submit</button>
+        <button id="showTables">Show my table</button>
+
+        <!-- <table id="table" cellpadding="0" cellspacing="0" border="0" class="display1" width="100%">
+            <thead>
+                <tr class="tr" role="row">
+                    <th width="150" >description</th>
+                    <th width="150">status</th>
+                </tr>
+            </thead> -->
+            <table id="tables1">
+                <tr class="mytr">
+                    <td id="tdDescrip">Description</td>
+                    <td id="tdStat"> Status</td>
+                </tr>
+            </table>
+        </table>
+
+    </form>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script>
+        $('#submit').click(function() {
+            $.ajax({
+                url: "http://localhost:8887/to_dos",
+                method: 'POST',
+                success: function() {
+                    console.log("yous data is been post")
+                },
+                data: {
+                    description: $('#description').val(),
+                    status: $('#status').val()
+                }
+
+            });
+        });
+        $('#showTables').click(function(e) {
+            e.preventDefault();
+                        $.ajax({
+                            url: "http://localhost:8887/to_dos",
+                            method: 'GET',
+                            success: function (res) {
+                                $('#tables1').html("");
+                                res.forEach(function(todo){
+
+
+                                    $('#tables1').append(`<tr class="lo"><td class="tdT">${todo.description}</td>+<td class="tdT">${todo.status}<button class='delete' idendb='${todo.id}'>DELETE</button></td></tr>`);
+
+                                })
+                            }
+
+          });
+});
+   $('#tables1').on('click', '.delete', function (e){
+    //    e.preventDefault();
+        var del = $(this).attr('idendb');
+       $.ajax({
+           url:"http://localhost:8887/to_dos",
+           method:'DELETE',
+           success: function(res){
+
+
+           },
+           data:{
+               id: del
+           }
+       })
+   })
+
+        //   $("#tables1").on("click", ".promover", function(e){
+        //       e.preventDefault();
+        //     var id = $(this).attr('idendb');
+        //     console.log(id);
+        //     $.ajax({
+        //         url:"http://localhost:8887/to_dos",
+        //         method:'PUT',
+        //         success: function(){
+        //             // console.log(res)
+        //
+        //
+        //         },
+        //         data:{
+        //             status: $('#tdDescrip').val(),
+        //             id: $('#tdStatus').val()
+        //         }
+        //     })
+        //   })
+        //
+
+    </script>
+
+</body>
+
+</html>

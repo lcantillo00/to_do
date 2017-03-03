@@ -1,0 +1,30 @@
+body{
+    margin: auto;
+
+
+}
+.myform{
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+
+}
+.form-group{
+margin-bottom: 20px;
+
+
+}
+.form2{
+    margin-bottom: 20px;
+
+}
+.tdT{
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.delete{
+    margin-left: 40px;
+}

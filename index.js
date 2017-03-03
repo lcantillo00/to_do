@@ -21,6 +21,7 @@ var connection= mysql.createConnection({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static("html_content"));
 
 app.get('/to_dos', function(req,res){
 
@@ -61,5 +62,18 @@ app.post('/to_dos', function(req,res){
          console.log("db request succeded");
 
     });
+});
+
+app.delete('/to_dos', function(req,res){
+    var query = `DELETE  FROM to_dos WHERE id='${req.body.id}'`;
+    connection.query(query, function (err, result){
+        if(err){
+            return res.status(500).send(err);
+        }
+        res.json(result);
+         console.log("db request succeded");
+
+    })
+
 });
 app.listen(8887);
